@@ -1,0 +1,32 @@
+{
+  "name": "koishi-plugin-status-image",
+  "description": "Status view",
+  "version": "0.0.2",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist",
+    "resource"
+  ],
+  "license": "AGPL-3.0",
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin",
+    "status"
+  ],
+  "peerDependencies": {
+    "@koishijs/plugin-analytics": ">=2.0.6",
+    "koishi": "^4.17.7"
+  },
+  "devDependencies": {
+    "koishi-plugin-puppeteer": "^3.8.4"
+  },
+  "koishi": {
+    "description": {
+      "en": "Déjà vu running status view",
+      "zh": "似曾相识的运行状态视图"
+    }
+  }
+}
