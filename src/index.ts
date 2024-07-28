@@ -49,29 +49,33 @@ export function apply(ctx: Context, cfg: Config) {
     const botStart: Dict<number> = {}
     let usage = getCpuUsage()
     let cpuUsedRate = 0
+    let cachedMessageCount: Dict<MessageStats>
+    let cachedDate: number
 
     ctx.on('login-added', session => botStart[session.sid] = session.timestamp)
-    ctx.on('ready', () => {
+    ctx.on('ready', async () => {
         ctx.setInterval(() => {
             const newUsage = getCpuUsage()
             cpuUsedRate = (newUsage.used - usage.used) / (newUsage.total - usage.total)
             usage = newUsage
         }, 5000)
+        cachedMessageCount = await getMessageCount()
+        cachedDate = Time.getDateNumber()
     })
 
-    async function getMessageCount() {
+    async function getMessageCount(dateNumber = Time.getDateNumber()) {
         const today = new Date()
         today.setHours(0, 0, 0, 0)
         const yesterdayStart = new Date(today.getTime() - 1000 * 60 * 60 * 24)
         const data = await ctx.database
             .select('analytics.message', {
                 date: {
-                    $lt: Time.getDateNumber(),
+                    $lt: dateNumber,
                     $gte: Time.getDateNumber(yesterdayStart)
-                },
+                }
             })
             .groupBy(['type', 'platform', 'selfId'], {
-                count: row => $.sum(row.count),
+                count: row => $.sum(row.count)
             })
             .execute()
         const result: Dict<MessageStats> = {}
@@ -84,7 +88,11 @@ export function apply(ctx: Context, cfg: Config) {
 
     ctx.command('status-image', '查看运行状态')
         .action(async ({ session }) => {
-            const messages = await getMessageCount()
+            const dateNumber = Time.getDateNumber()
+            if (dateNumber !== cachedDate) {
+                cachedMessageCount = await getMessageCount(dateNumber)
+                cachedDate = dateNumber
+            }
             const background = Random.pick(cfg.background)
             const memory = 1 - freemem() / totalmem()
             const content = generate({
@@ -98,7 +106,7 @@ export function apply(ctx: Context, cfg: Config) {
                 memory,
                 cpu: cpuUsedRate,
                 os,
-                messages
+                messages: cachedMessageCount
             })
             return await ctx.puppeteer.render(content)
         })
