@@ -131,12 +131,12 @@
 }
 
 :root {
-  --high-color: #d73403;
-  --medium-color: #ffa500;
-  --low-color: #94e2d5;
-  --avatar-main-color: #fff1eb;
-  --avatar-similar-color1: #fff1eb;
-  --avatar-similar-color2: #ace0f9;
+  --high-color: #f38ba8;
+  --medium-color: #f9e2af;
+  --low-color: #89dceb;
+  --avatar-main-color: #cdd6f4;
+  --avatar-similar-color1: #cdd6f4;
+  --avatar-similar-color2: #74c7ec;
 }
 
 .container {
