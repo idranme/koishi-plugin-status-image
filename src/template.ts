@@ -1,5 +1,5 @@
 import { Bot, Universal, Dict } from 'koishi'
-import { MessageStats, Config } from './index'
+import { MessageStats } from './index'
 
 interface Info {
     path: string

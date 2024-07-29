@@ -20,7 +20,6 @@ const path = pathToFileURL(join(__dirname, '../resource')).href
 export const Config: Schema<Config> = Schema.object({
     background: Schema.array(String).role('table').description('背景图片地址，将会随机抽取其一')
         .default([`${path}/bg/default.webp`]),
-    
     darkMode: Schema.boolean().description('暗色模式').default(false)
 })
 
