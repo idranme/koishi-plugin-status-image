@@ -1,5 +1,5 @@
 import { Bot, Universal, Dict } from 'koishi'
-import { MessageStats } from './index'
+import { MessageStats, Config } from './index'
 
 interface Info {
     path: string
@@ -48,7 +48,7 @@ function circle(value: number) {
 }
 
 // Forked from https://github.com/yeyang52/yenai-plugin/blob/098e0310392a25b036021f5523108ee2a8d57032/resources/state/index.html
-export function generate(info: Info) {
+export function generate(info: Info, dark: boolean) {
     const now = Date.now()
     const botList = info.bot.map(v => {
         const runningTime = info.botStart[v.sid] ? now - info.botStart[v.sid] : info.uptime
@@ -72,10 +72,10 @@ export function generate(info: Info) {
                     <h1>${v.user.nick || v.user.name}</h1>
                     <hr noshade>
                     <p>
-                        <span style="background: #d799de">
+                        <span style="background: #f5c2e7; color: #11111b">
                             ${v.platform}
                         </span>
-                        <span style="background: #CBC7C8">
+                        <span style="background: #f5e0dc; color: #11111b">
                             已运行 ${formatDuring(runningTime)}
                         </span>
                     </p>
@@ -102,8 +102,8 @@ export function generate(info: Info) {
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>status</title>
-            <link rel="stylesheet" href="${info.path}/css/common.css" />
-            <link rel="stylesheet" href="${info.path}/css/index.css" />
+            <link rel="stylesheet" href="${info.path}/${dark ? 'css-dark/common.css' : 'css/common.css'}" />
+            <link rel="stylesheet" href="${info.path}/${dark ? 'css-dark/index.css' : 'css/index.css'}" />
             <style>
                 .container {
                     background-image: url(${info.background});
