@@ -3,18 +3,18 @@
 /* Forked from https://github.com/yeyang52/yenai-plugin/blob/098e0310392a25b036021f5523108ee2a8d57032/resources/state/css/index.css */
 
 :root {
-  --bg: rgba(255, 255, 255);
+  --bg: rgba(239, 241, 245);
   /* 背景颜色 */
-  --back-bg: #c5ccda;
+  --back-bg: #acb0be;
   /* 定义宽度 */
   --w: 100px;
-  --back-shadow: #fff;
+  --back-shadow: #ccd0da;
   /* 父容器gap间距 */
   --gap: 8px;
   /* 第二层圆形宽度 */
   --inner: calc(var(--w) - var(--gap));
   /* 文本颜色 */
-  --text-color: #514f4f;
+  --text-color: #4c4f69;
   /* 定义stroke的宽度 */
   --stroke: 12px;
   /* svg环形宽度 更正内容*/
@@ -46,13 +46,13 @@
   color: var(--text-color);
 }
 
-.mainHardware .circle-outer {
+/* .mainHardware .circle-outer {
   position: relative;
   width: 100%;
   height: 100%;
   border-radius: 50%;
   background: var(--bg);
-}
+} */
 
 .mainHardware .circle-outer::before {
   width: var(--inner);
@@ -133,12 +133,12 @@
 }
 
 :root {
-  --high-color: #d73403;
-  --medium-color: #ffa500;
-  --low-color: #87CEEB;
+  --high-color: #e78284;
+  --medium-color: #e5c890;
+  --low-color: #85c1dc;
   --avatar-main-color: #fff1eb;
   --avatar-similar-color1: #fff1eb;
-  --avatar-similar-color2: #ace0f9;
+  --avatar-similar-color2: #99d1db;
 }
 
 .container {
@@ -147,6 +147,22 @@
   background-position: center top;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(220, 224, 232, 0.15); 
+  z-index: 1; 
+}
+
+.container > * {
+  position: relative;
+  z-index: 2;
 }
 
 li {
@@ -164,7 +180,6 @@ body {
   margin: 20px;
   padding: 10px;
   background: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 8px 32px 0 rgba(51, 51, 52, 0.5), inset 3px 3px 10px 0px rgba(255, 255, 255, 0.7);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-radius: 18px;
@@ -230,7 +245,7 @@ body {
 .botInfo .header {
   font-size: 14px;
   width: 100%;
-  color: #000;
+  color: var(--text-color);
 }
 
 .botInfo .header hr {
@@ -243,14 +258,14 @@ body {
   display: flex;
   flex-wrap: wrap;
   row-gap: 10px;
-  --purple: #B4A0D8;
-  --orange: #e0be92;
-  --blue: #aad5e6;
+  --purple: #babbf1;
+  --orange: #e5c890;
+  --blue: #8caaee;
+  color: #11111b;
 }
 
 .botInfo .header p span {
   border-radius: 5px;
-  box-shadow: -2px 2px 3px rgba(8, 8, 8, 0.5);
   padding: 0px 5px;
   margin-right: 8px;
   white-space: nowrap;
@@ -331,19 +346,19 @@ hr {
 }
 
 .status-light.online {
-  background-color: #67c23a;
+  background-color: #a6d189;
 }
 
 .status-light.connect, .status-light.reconnect {
-  background-color: #e49400;
+  background-color: #ef9f76;
 }
 
 .status-light.disconnect {
-  background-color: #f56c6c;
+  background-color: #e78284;
 }
 
 .status-light.offline {
-  background-color: #909399;
+  background-color: #6c6f85;
 }
 
 .status-text {
