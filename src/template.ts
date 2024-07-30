@@ -72,10 +72,10 @@ export function generate(info: Info, dark: boolean) {
                     <h1>${v.user.nick || v.user.name}</h1>
                     <hr noshade>
                     <p>
-                        <span style="background: #f5c2e7; color: #11111b">
+                        <span ${dark ? 'style="background: #f5e0dc; color: #11111b"' : 'style="background: #f2d5cf; color: #11111b"'}>
                             ${v.platform}
                         </span>
-                        <span style="background: #f5e0dc; color: #11111b">
+                        <span ${dark ? 'style="background: #f5c2e7; color: #11111b"' : 'style="background: #f4b8e4; color: #11111b"'}>
                             已运行 ${formatDuring(runningTime)}
                         </span>
                     </p>
