@@ -51,23 +51,25 @@ export interface MessageStats {
 export function apply(ctx: Context, cfg: Config) {
     const os = version()
     const botStart: Dict<number> = {}
-    let usage = getCpuUsage()
+    let usage: ReturnType<typeof getCpuUsage>
     let cpuUsedRate = 0
     let cachedMessageCount: Dict<MessageStats>
     let cachedDate: number
 
     ctx.on('login-added', session => botStart[session.sid] = session.timestamp)
     ctx.on('ready', async () => {
+        usage = getCpuUsage()
         ctx.setInterval(() => {
             const newUsage = getCpuUsage()
             cpuUsedRate = (newUsage.used - usage.used) / (newUsage.total - usage.total)
             usage = newUsage
         }, 5000)
-        cachedMessageCount = await getMessageCount()
-        cachedDate = Time.getDateNumber()
+        const dateNumber = Time.getDateNumber()
+        cachedMessageCount = await getMessageCount(dateNumber)
+        cachedDate = dateNumber
     })
 
-    async function getMessageCount(dateNumber = Time.getDateNumber()) {
+    async function getMessageCount(dateNumber: number) {
         const today = new Date()
         today.setHours(0, 0, 0, 0)
         const yesterdayStart = new Date(today.getTime() - 1000 * 60 * 60 * 24)
