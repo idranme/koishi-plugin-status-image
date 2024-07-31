@@ -21,6 +21,12 @@
   --circle: calc(var(--inner) - var(--stroke));
   /* 第三层圆形宽度 */
   --center: calc(var(--circle) - var(--stroke));
+  --high-color: #e78284;
+  --medium-color: #e5c890;
+  --low-color: #85c1dc;
+  --avatar-main-color: #fff1eb;
+  --avatar-similar-color1: #fff1eb;
+  --avatar-similar-color2: #99d1db;
 }
 
 .mainHardware {
@@ -117,13 +123,6 @@
   margin-top: 5px;
 }
 
-.mainHardware article p {
-  font-size: 12px;
-  color: #2f4f4f;
-  white-space: nowrap;
-  margin-top: 5px;
-}
-
 .speed p,
 .HardDisk_li .mount,
 .botInfo .header h1 {
@@ -132,17 +131,7 @@
   white-space: nowrap;
 }
 
-:root {
-  --high-color: #e78284;
-  --medium-color: #e5c890;
-  --low-color: #85c1dc;
-  --avatar-main-color: #fff1eb;
-  --avatar-similar-color1: #fff1eb;
-  --avatar-similar-color2: #99d1db;
-}
-
 .container {
-  background-image: url("../img/default_bg.jpg");
   background-color: #e9e9e9;
   background-position: center top;
   background-repeat: no-repeat;
@@ -156,11 +145,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(220, 224, 232, 0.15); 
-  z-index: 1; 
+  background-color: rgba(220, 224, 232, 0.15);
+  z-index: 1;
 }
 
-.container > * {
+.container>* {
   position: relative;
   z-index: 2;
 }
@@ -266,7 +255,7 @@ body {
 
 .botInfo .header p span {
   border-radius: 5px;
-  padding: 0px 5px;
+  padding: 1px 5px;
   margin-right: 8px;
   white-space: nowrap;
 }
@@ -275,29 +264,6 @@ body {
   width: 14px;
   height: 14px;
   vertical-align: -2px;
-}
-
-.botInfo .header p:nth-child(3) span:nth-child(1) {
-  background: #d799de;
-}
-
-.botInfo .header p:nth-child(3) span:nth-child(2) {
-  background: #CBC7C8;
-}
-
-.botInfo .header p:nth-child(4) span:nth-child(1),
-.botInfo .header p:nth-child(4) span:nth-child(4) {
-  background: var(--purple);
-}
-
-.botInfo .header p:nth-child(4) span:nth-child(2),
-.botInfo .header p:nth-child(4) span:nth-child(5) {
-  background: var(--orange);
-}
-
-.botInfo .header p:nth-child(4) span:nth-child(3),
-.botInfo .header p:nth-child(4) span:nth-child(6) {
-  background: var(--blue);
 }
 
 .botInfo .header h1 {
@@ -349,7 +315,8 @@ hr {
   background-color: #a6d189;
 }
 
-.status-light.connect, .status-light.reconnect {
+.status-light.connect,
+.status-light.reconnect {
   background-color: #ef9f76;
 }
 
@@ -364,4 +331,20 @@ hr {
 .status-text {
   line-height: 15px;
   font-size: 12px;
+}
+
+span.platform {
+  background: #f2d5cf;
+}
+
+span.running-time {
+  background: #f4b8e4;
+}
+
+span.sent {
+  background: var(--purple);
+}
+
+span.received {
+  background: var(--orange);
 }

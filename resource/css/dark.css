@@ -1,0 +1,79 @@
+:root {
+    --bg: rgba(30, 30, 46);
+    --back-bg: #1e1e2e;
+    --back-shadow: #181825;
+    --text-color: #cdd6f4;
+    --high-color: #f38ba8;
+    --medium-color: #f9e2af;
+    --low-color: #89dceb;
+    --avatar-main-color: #cdd6f4;
+    --avatar-similar-color1: #cdd6f4;
+    --avatar-similar-color2: #74c7ec;
+}
+
+body {
+    color: #cdd6f4;
+}
+
+.container {
+    background-color: #1e1e2e;
+}
+
+.box {
+    background: rgba(30, 30, 46, 0.35);
+    border: 1px solid rgba(30, 30, 46, 0.18);
+}
+
+.mainHardware .circle-outer::before {
+    box-shadow: none;
+}
+
+.mainHardware .circle-outer::before,
+.mainHardware .circle-outer::after {
+    background: #313244;
+}
+
+.botInfo .header {
+    color: #cdd6f4;
+}
+
+.botInfo .header p {
+    --purple: #B4A0D8;
+    --orange: #e0be92;
+    --blue: #aad5e6;
+    color: inherit;
+}
+
+.botInfo .header p span {
+    box-shadow: -2px 2px 3px rgba(8, 8, 8, 0.5);
+    color: #11111b;
+}
+
+.botInfo .header h1 {
+    background-color: #cdd6f4;
+}
+
+.status-light.online {
+    background-color: #67c23a;
+}
+
+.status-light.connect,
+.status-light.reconnect {
+    background-color: #e49400;
+}
+
+.status-light.disconnect {
+    background-color: #f56c6c;
+}
+
+.status-light.offline {
+    background-color: #909399;
+}
+
+span.platform {
+    background: #f5e0dc;
+}
+
+span.running-time {
+    background: #f5c2e7;
+}

@@ -57,46 +57,48 @@ export function generate(info: Info, dark: boolean) {
         const sentMessages = info.messages[v.sid]?.send ?? 0
         return `
             <div class="box">
-            <div class="botInfo">
-                <div class="avatar-box">
-                    <div class="avatar">
-                        <img src="${v.user.avatar}">
-                    </div>
-                    <div class="info">
-                        <div class="onlineStatus">
-                            <span class="status-light ${statusMap[v.status][0]}"></span>
+                <div class="botInfo">
+                    <div class="avatar-box">
+                        <div class="avatar">
+                            <img src="${v.user.avatar}">
                         </div>
-                        <div class="status-text">${statusMap[v.status][1]}</div>
+                        <div class="info">
+                            <div class="onlineStatus">
+                                <span class="status-light ${statusMap[v.status][0]}"></span>
+                            </div>
+                            <div class="status-text">${statusMap[v.status][1]}</div>
+                        </div>
                     </div>
-                </div>
-                <div class="header">
-                    <h1>${v.user.nick || v.user.name}</h1>
-                    <hr noshade>
-                    <p>
-                        <span ${dark ? 'style="background: #f5e0dc; color: #11111b"' : 'style="background: #f2d5cf; color: #11111b"'}>
-                            ${v.platform}
-                        </span>
-                        <span ${dark ? 'style="background: #f5c2e7; color: #11111b"' : 'style="background: #f4b8e4; color: #11111b"'}>
-                            已运行 ${formatDuring(runningTime)}
-                        </span>
-                    </p>
-                    <p>
-                        <span>
-                            <img src="${info.path}/icon/sent.png">
-                            昨日发送 ${sentMessages}
-                        </span>
-                        <span>
-                            <img src="${info.path}/icon/recv.png">
-                            昨日接收 ${receivedMessages}
-                        </span>
-                    </p>
+                    <div class="header">
+                        <h1>${v.user.nick || v.user.name}</h1>
+                        <hr noshade>
+                        <p>
+                            <span class="platform">
+                                ${v.platform}
+                            </span>
+                            <span class="running-time">
+                                已运行 ${formatDuring(runningTime)}
+                            </span>
+                        </p>
+                        <p>
+                            <span class="sent">
+                                <img src="${info.path}/icon/sent.png">
+                                昨日发送 ${sentMessages}
+                            </span>
+                            <span class="received">
+                                <img src="${info.path}/icon/recv.png">
+                                昨日接收 ${receivedMessages}
+                            </span>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>`
-    }).join('')
+        `
+    })
     const cpuCircle = circle(info.cpu)
     const memoryCircle = circle(info.memory)
     const maskColor = dark ? [0, 0, 0] : [220, 224, 232]
+    const darkStylesheet = `<link rel="stylesheet" href="${info.path}/css/dark.css" />`
     return `
         <!DOCTYPE html>
         <html lang="zh-cn">
@@ -104,8 +106,9 @@ export function generate(info: Info, dark: boolean) {
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>status</title>
-            <link rel="stylesheet" href="${info.path}/${dark ? 'css-dark/common.css' : 'css/common.css'}" />
-            <link rel="stylesheet" href="${info.path}/${dark ? 'css-dark/index.css' : 'css/index.css'}" />
+            <link rel="stylesheet" href="${info.path}/css/common.css" />
+            <link rel="stylesheet" href="${info.path}/css/index.css" />
+            ${dark ? darkStylesheet : ''}
             <style>
                 .container {
                     background-image: url(${info.background});
@@ -117,7 +120,7 @@ export function generate(info: Info, dark: boolean) {
         </head>
         <body class="elem-hydro default-mode">
             <div class="container" id="container">
-                ${botList}
+                ${botList.join('')}
                 <div class="box">
                     <ul class="mainHardware">
                         <li class="li">
