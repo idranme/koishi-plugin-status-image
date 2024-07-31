@@ -13,6 +13,7 @@ interface Info {
     v8Version: string
     uptime: number
     os: string
+    maskOpacity: number
 }
 
 const statusMap: Record<Universal.Status, string[]> = {
@@ -95,6 +96,7 @@ export function generate(info: Info, dark: boolean) {
     }).join('')
     const cpuCircle = circle(info.cpu)
     const memoryCircle = circle(info.memory)
+    const maskColor = dark ? [0, 0, 0] : [220, 224, 232]
     return `
         <!DOCTYPE html>
         <html lang="zh-cn">
@@ -107,6 +109,9 @@ export function generate(info: Info, dark: boolean) {
             <style>
                 .container {
                     background-image: url(${info.background});
+                }
+                .container::before {
+                    background-color: rgba(${maskColor[0]}, ${maskColor[1]}, ${maskColor[2]}, ${info.maskOpacity});
                 }
             </style>
         </head>

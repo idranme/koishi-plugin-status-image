@@ -1,7 +1,7 @@
 import { Context, Schema, Dict, Random, $, Time } from 'koishi'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { versions, uptime, config } from 'node:process'
+import { versions, uptime } from 'node:process'
 import { cpus, freemem, totalmem, version } from 'node:os'
 import { generate } from './template'
 import type { } from 'koishi-plugin-puppeteer'
@@ -13,6 +13,7 @@ export const inject = ['puppeteer', 'database']
 export interface Config {
     background: string[]
     darkMode: boolean
+    backgroundMaskOpacity: number
 }
 
 const path = pathToFileURL(join(__dirname, '../resource')).href
@@ -20,7 +21,8 @@ const path = pathToFileURL(join(__dirname, '../resource')).href
 export const Config: Schema<Config> = Schema.object({
     background: Schema.array(String).role('table').description('背景图片地址，将会随机抽取其一')
         .default([`${path}/bg/default.webp`]),
-    darkMode: Schema.boolean().description('暗色模式').default(false)
+    darkMode: Schema.boolean().description('暗色模式').default(false),
+    backgroundMaskOpacity: Schema.natural().max(1).step(0.01).description('背景遮罩不透明度').default(0.15)
 })
 
 // Forked from https://github.com/koishijs/webui/blob/14ec1b6164cec194b1725f7cd076622e76cb946f/plugins/status/src/profile.ts#L52
@@ -108,7 +110,8 @@ export function apply(ctx: Context, cfg: Config) {
                 memory,
                 cpu: cpuUsedRate,
                 os,
-                messages: cachedMessageCount
+                messages: cachedMessageCount,
+                maskOpacity: cfg.backgroundMaskOpacity
             }, cfg.darkMode)
             return await ctx.puppeteer.render(content)
         })
