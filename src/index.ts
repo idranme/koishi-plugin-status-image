@@ -68,8 +68,8 @@ export function apply(ctx: Context, cfg: Config) {
         const dateNumber = Time.getDateNumber()
         cachedMessageCount = await getMessageCount(dateNumber)
         cachedDate = dateNumber
-        const { distro } = await osInfo()
-        os = distro
+        const { distro, release } = await osInfo()
+        os = release ? `${distro} ${release}` : distro
     })
 
     async function getMessageCount(dateNumber: number) {
