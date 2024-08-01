@@ -267,11 +267,8 @@ body {
 }
 
 .botInfo .header h1 {
-  display: inline-block;
-  background-color: #000;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: #000;
+  max-width: 21vw;
 }
 
 hr {

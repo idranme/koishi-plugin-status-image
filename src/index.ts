@@ -2,8 +2,9 @@ import { Context, Schema, Dict, Random, $, Time } from 'koishi'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { versions, uptime } from 'node:process'
-import { cpus, freemem, totalmem, version } from 'node:os'
+import { cpus, freemem, totalmem } from 'node:os'
 import { generate } from './template'
+import { osInfo } from './osinfo'
 import type { } from 'koishi-plugin-puppeteer'
 import type { } from '@koishijs/plugin-analytics'
 
@@ -49,12 +50,12 @@ export interface MessageStats {
 }
 
 export function apply(ctx: Context, cfg: Config) {
-    const os = version()
     const botStart: Dict<number> = {}
     let usage: ReturnType<typeof getCpuUsage>
     let cpuUsedRate = 0
     let cachedMessageCount: Dict<MessageStats>
     let cachedDate: number
+    let os: string
 
     ctx.on('login-added', session => botStart[session.sid] = session.timestamp)
     ctx.on('ready', async () => {
@@ -67,6 +68,8 @@ export function apply(ctx: Context, cfg: Config) {
         const dateNumber = Time.getDateNumber()
         cachedMessageCount = await getMessageCount(dateNumber)
         cachedDate = dateNumber
+        const { distro } = await osInfo()
+        os = distro
     })
 
     async function getMessageCount(dateNumber: number) {

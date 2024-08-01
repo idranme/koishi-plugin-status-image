@@ -55,12 +55,13 @@ export function generate(info: Info, dark: boolean) {
         const runningTime = info.botStart[v.sid] ? now - info.botStart[v.sid] : info.uptime
         const receivedMessages = info.messages[v.sid]?.receive ?? 0
         const sentMessages = info.messages[v.sid]?.send ?? 0
+        const avatarImg = `<img src="${v.user.avatar}" />`
         return `
             <div class="box">
                 <div class="botInfo">
                     <div class="avatar-box">
                         <div class="avatar">
-                            <img src="${v.user.avatar}">
+                            ${v.user.avatar ? avatarImg : ''}
                         </div>
                         <div class="info">
                             <div class="onlineStatus">
@@ -71,7 +72,7 @@ export function generate(info: Info, dark: boolean) {
                     </div>
                     <div class="header">
                         <h1>${v.user.nick || v.user.name}</h1>
-                        <hr noshade>
+                        <hr noshade />
                         <p>
                             <span class="platform">
                                 ${v.platform}
@@ -82,11 +83,11 @@ export function generate(info: Info, dark: boolean) {
                         </p>
                         <p>
                             <span class="sent">
-                                <img src="${info.path}/icon/sent.png">
+                                <img src="${info.path}/icon/sent.png" />
                                 昨日发送 ${sentMessages}
                             </span>
                             <span class="received">
-                                <img src="${info.path}/icon/recv.png">
+                                <img src="${info.path}/icon/recv.png" />
                                 昨日接收 ${receivedMessages}
                             </span>
                         </p>
@@ -101,63 +102,63 @@ export function generate(info: Info, dark: boolean) {
     const darkStylesheet = `<link rel="stylesheet" href="${info.path}/css/dark.css" />`
     return `
         <!DOCTYPE html>
-        <html lang="zh-cn">
-        <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>status</title>
-            <link rel="stylesheet" href="${info.path}/css/common.css" />
-            <link rel="stylesheet" href="${info.path}/css/index.css" />
-            ${dark ? darkStylesheet : ''}
-            <style>
-                .container {
-                    background-image: url(${info.background});
-                }
-                .container::before {
-                    background-color: rgba(${maskColor[0]}, ${maskColor[1]}, ${maskColor[2]}, ${info.maskOpacity});
-                }
-            </style>
-        </head>
-        <body class="elem-hydro default-mode">
-            <div class="container" id="container">
-                ${botList.join('')}
-                <div class="box">
-                    <ul class="mainHardware">
-                        <li class="li">
-                            <div class="container-box" data-num="${cpuCircle.inner}">
-                                <div class="circle-outer"></div>
-                                <svg>
-                                    <circle id="circle" stroke="${cpuCircle.color}" style="stroke-dashoffset: ${cpuCircle.per}">
-                                    </circle>
-                                </svg>
-                            </div>
-                            <article>
-                                <summary>CPU</summary>
-                            </article>
-                        </li>
-                        <li class="li">
-                            <div class="container-box" data-num="${memoryCircle.inner}">
-                                <div class="circle-outer"></div>
-                                <svg>
-                                    <circle id="circle" stroke="${memoryCircle.color}" style="stroke-dashoffset: ${memoryCircle.per}">
-                                    </circle>
-                                </svg>
-                            </div>
-                            <article>
-                                <summary>RAM</summary>
-                            </article>
-                        </li>
-                    </ul>
-                </div>
-                <div class="box">
-                    <div class="speed">
-                        <p>系统</p>
-                        <p>${info.os}</p>
+        <html lang="zh">
+            <head>
+                <meta charset="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>status</title>
+                <link rel="stylesheet" href="${info.path}/css/common.css" />
+                <link rel="stylesheet" href="${info.path}/css/index.css" />
+                ${dark ? darkStylesheet : ''}
+                <style>
+                    .container {
+                        background-image: url(${info.background});
+                    }
+                    .container::before {
+                        background-color: rgba(${maskColor[0]}, ${maskColor[1]}, ${maskColor[2]}, ${info.maskOpacity});
+                    }
+                </style>
+            </head>
+            <body class="elem-hydro default-mode">
+                <div class="container" id="container">
+                    ${botList.join('')}
+                    <div class="box">
+                        <ul class="mainHardware">
+                            <li class="li">
+                                <div class="container-box" data-num="${cpuCircle.inner}">
+                                    <div class="circle-outer"></div>
+                                    <svg>
+                                        <circle id="circle" stroke="${cpuCircle.color}" style="stroke-dashoffset: ${cpuCircle.per}">
+                                        </circle>
+                                    </svg>
+                                </div>
+                                <article>
+                                    <summary>CPU</summary>
+                                </article>
+                            </li>
+                            <li class="li">
+                                <div class="container-box" data-num="${memoryCircle.inner}">
+                                    <div class="circle-outer"></div>
+                                    <svg>
+                                        <circle id="circle" stroke="${memoryCircle.color}" style="stroke-dashoffset: ${memoryCircle.per}">
+                                        </circle>
+                                    </svg>
+                                </div>
+                                <article>
+                                    <summary>RAM</summary>
+                                </article>
+                            </li>
+                        </ul>
                     </div>
+                    <div class="box">
+                        <div class="speed">
+                            <p>系统</p>
+                            <p>${info.os}</p>
+                        </div>
+                    </div>
+                    <div class="copyright">Node <span class="version">v${info.nodeVersion}</span> & V8 <span class="version">v${info.v8Version}</span></div>
                 </div>
-                <div class="copyright">Node <span class="version">v${info.nodeVersion}</span> & V8 <span class="version">v${info.v8Version}</span></div>
-            </div>
-        </body>
+            </body>
         </html>
     `
 }
