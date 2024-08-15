@@ -14,6 +14,7 @@ interface Info {
     uptime: number
     os: string
     maskOpacity: number
+    platform: string
 }
 
 const statusMap: Record<Universal.Status, string[]> = {
@@ -51,12 +52,16 @@ function circle(value: number) {
 // Forked from https://github.com/yeyang52/yenai-plugin/blob/098e0310392a25b036021f5523108ee2a8d57032/resources/state/index.html
 export function generate(info: Info, dark: boolean) {
     const now = Date.now()
-    const botList = info.bot.map(v => {
+    const botList = []
+    for (const v of info.bot) {
+        if (v.platform.startsWith('sandbox:') && !info.platform.startsWith('sandbox:')) {
+            continue
+        }
         const runningTime = info.botStart[v.sid] ? now - info.botStart[v.sid] : info.uptime
         const receivedMessages = info.messages[v.sid]?.receive ?? 0
         const sentMessages = info.messages[v.sid]?.send ?? 0
         const avatarImg = `<img src="${v.user.avatar}" />`
-        return `
+        const content = `
             <div class="box">
                 <div class="botInfo">
                     <div class="avatar-box">
@@ -95,7 +100,8 @@ export function generate(info: Info, dark: boolean) {
                 </div>
             </div>
         `
-    })
+        botList.push(content)
+    }
     const cpuCircle = circle(info.cpu)
     const memoryCircle = circle(info.memory)
     const maskColor = dark ? [0, 0, 0] : [220, 224, 232]

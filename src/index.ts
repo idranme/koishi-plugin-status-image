@@ -116,7 +116,8 @@ export function apply(ctx: Context, cfg: Config) {
                 cpu: cpuUsedRate,
                 os,
                 messages: cachedMessageCount,
-                maskOpacity: cfg.backgroundMaskOpacity
+                maskOpacity: cfg.backgroundMaskOpacity,
+                platform: session.platform
             }, cfg.darkMode)
             return await ctx.puppeteer.render(content)
         })
