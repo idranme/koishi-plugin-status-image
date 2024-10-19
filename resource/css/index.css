@@ -3,9 +3,9 @@
 /* Forked from https://github.com/yeyang52/yenai-plugin/blob/098e0310392a25b036021f5523108ee2a8d57032/resources/state/css/index.css */
 
 :root {
-  --bg: rgba(239, 241, 245);
+  --bg: rgba(239, 241, 245, 0.4);
   /* 背景颜色 */
-  --back-bg: #acb0be;
+  --back-bg: rgb(204, 208, 218. 0.5);
   /* 定义宽度 */
   --w: 100px;
   --back-shadow: #ccd0da;
@@ -63,13 +63,11 @@
 .mainHardware .circle-outer::before {
   width: var(--inner);
   height: var(--inner);
-  box-shadow: inset 8px 8px 10px var(--back-bg), inset -4px -4px 8px var(--back-shadow);
 }
 
 .mainHardware .circle-outer::after {
   width: var(--center);
   height: var(--center);
-  box-shadow: 6px 6px 8px var(--back-bg), -2px -2px 8px var(--back-shadow);
 }
 
 .mainHardware .circle-outer::before,
@@ -145,7 +143,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(220, 224, 232, 0.15);
+  background-color: rgb(220, 224, 232);
   z-index: 1;
 }
 

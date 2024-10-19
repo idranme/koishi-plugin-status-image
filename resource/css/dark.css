@@ -1,7 +1,7 @@
 :root {
-    --bg: rgba(30, 30, 46);
-    --back-bg: #1e1e2e;
-    --back-shadow: #181825;
+    --bg: rgb(49, 50, 68, 0.5);
+    --back-bg: rgba(0, 0, 0, 0);
+    --back-shadow: rgb(24, 24, 37, 0.5);
     --text-color: #cdd6f4;
     --high-color: #f38ba8;
     --medium-color: #f9e2af;
@@ -21,16 +21,6 @@ body {
 
 .box {
     background: rgba(30, 30, 46, 0.35);
-    border: 1px solid rgba(30, 30, 46, 0.18);
-}
-
-.mainHardware .circle-outer::before {
-    box-shadow: none;
-}
-
-.mainHardware .circle-outer::before,
-.mainHardware .circle-outer::after {
-    background: #313244;
 }
 
 .botInfo .header {
