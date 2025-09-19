@@ -226,36 +226,62 @@ export function apply(ctx: Context, cfg: Config) {
 
       // 生成 HTML 内容
       let content: string
-      if (cfg.theme === 'aero-dark') {
-        content = generateAeroTheme({
-          path,
-          background,
-          systemInfo,
-          activeSid: session.sid,
-          activePlatform: session.platform,
-          displayName: cfg.displayName,
-          darkMode: true
-        })
-      } else if (cfg.theme === 'aero-light') {
-        content = generateAeroTheme({
-          path,
-          background,
-          systemInfo,
-          activeSid: session.sid,
-          activePlatform: session.platform,
-          displayName: cfg.displayName,
-          darkMode: false
-        })
-      } else if (['yenai-light', 'yenai-dark'].includes(cfg.theme)) {
-        content = generateYenaiTheme({
-          path,
-          background,
-          systemInfo,
-          maskOpacity: cfg.backgroundMaskOpacity,
-          displayName: cfg.displayName,
-          darkMode: cfg.theme === 'yenai-dark'
-        })
+      // 稍微优化一下
+      switch(cfg.theme) {
+        case 'aero-dark':
+        case 'aero-light':
+          content = generateAeroTheme({
+            path,
+            background,
+            systemInfo,
+            activeSid: session.sid,
+            activePlatform: session.platform,
+            displayName: cfg.displayName,
+            darkMode: cfg.theme.includes('dark')
+          });
+          break;
+        case 'yenai-light':
+        case 'yenai-dark':
+          content = generateYenaiTheme({
+            path,
+            background,
+            systemInfo,
+            maskOpacity: cfg.backgroundMaskOpacity,
+            displayName: cfg.displayName,
+            darkMode: cfg.theme.includes('dark')
+          });
       }
+      // 原代码
+      // if (cfg.theme === 'aero-dark') {
+      //   content = generateAeroTheme({
+      //     path,
+      //     background,
+      //     systemInfo,
+      //     activeSid: session.sid,
+      //     activePlatform: session.platform,
+      //     displayName: cfg.displayName,
+      //     darkMode: true
+      //   })
+      // } else if (cfg.theme === 'aero-light') {
+      //   content = generateAeroTheme({
+      //     path,
+      //     background,
+      //     systemInfo,
+      //     activeSid: session.sid,
+      //     activePlatform: session.platform,
+      //     displayName: cfg.displayName,
+      //     darkMode: false
+      //   })
+      // } else if (['yenai-light', 'yenai-dark'].includes(cfg.theme)) {
+      //   content = generateYenaiTheme({
+      //     path,
+      //     background,
+      //     systemInfo,
+      //     maskOpacity: cfg.backgroundMaskOpacity,
+      //     displayName: cfg.displayName,
+      //     darkMode: cfg.theme === 'yenai-dark'
+      //   })
+      // }
 
       // 使用 puppeteer 渲染图片
       return await ctx.puppeteer.render(content)
